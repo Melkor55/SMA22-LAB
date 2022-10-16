@@ -3,20 +3,28 @@ package com.example.sma1;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
+{
 
     EditText nameField;
     Button button;
     TextView textView;
+    Spinner spinner;
+    String[] collors = { "red", "teal", "black", "green"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
         nameField = findViewById(R.id.nameField);
         button = findViewById(R.id.button);
         textView = findViewById(R.id.textView);
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+        //Creating the ArrayAdapter instance having the collor list
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,collors);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner.setAdapter(aa);
+
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this,R.style.AlertDialogTheme2)
             //.setTitle("Delete entry")
@@ -35,12 +53,16 @@ public class MainActivity extends AppCompatActivity {
             // The dialog is automatically dismissed when a dialog button is clicked.
             .setPositiveButton("Good", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    // Continue with delete operation
+                    Toast.makeText(getApplicationContext(),"I'm happy to hear that",Toast.LENGTH_SHORT).show();
                 }
             })
 
             // A null listener allows the button to dismiss the dialog and take no further action.
-            .setNegativeButton("Bad", null)
+            .setNegativeButton("Bad", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(getApplicationContext(),"I'm sorry to hear that",Toast.LENGTH_SHORT).show();
+                }
+            })
             ;//.show();
 
 
@@ -67,6 +89,30 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //Performing action onItemSelected and onNothing selected
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
+    {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("red", R.color.red);
+        map.put("teal",R.color.teal_200);
+        map.put("green",R.color.green);
+        map.put("black",R.color.black);
+
+        System.out.println(map.get("red"));
+        System.out.println(R.color.black);
+
+        button = findViewById(R.id.button);
+        button.setBackgroundColor(getResources().getColor(map.get(collors[position])));
+        Toast.makeText(getApplicationContext(),collors[position] , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0)
+    {
+        // TODO Auto-generated method stub
     }
 
 
