@@ -3,7 +3,10 @@ package com.example.sma1;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 {
 
     EditText nameField;
-    Button button;
+    Button button, bSearch, bShare;
     TextView textView;
     Spinner spinner;
     String[] collors = { "red", "teal", "black", "green"};
@@ -33,8 +36,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         nameField = findViewById(R.id.nameField);
         button = findViewById(R.id.button);
+        bSearch = findViewById(R.id.bSearch);
+        bShare = findViewById(R.id.bShare);
         textView = findViewById(R.id.textView);
         spinner = (Spinner) findViewById(R.id.spinner);
+
 
         spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
@@ -70,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
 
-                String name,message;
-                name = String.valueOf(nameField.getText());
+                String message;
+                String name = String.valueOf(nameField.getText());
                 message = "Hello " + name + " !";
                 if (!name.equals(""))
                 {
@@ -89,6 +95,59 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
+
+        bShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String name = String.valueOf(nameField.getText());
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT,name);
+
+                // Create intent to show chooser
+                Intent chooser = Intent.createChooser(intent, "Share ");
+
+                // Try to invoke the intent.
+                try {
+                    startActivity(chooser);
+                } catch (ActivityNotFoundException e) {
+                    System.out.println("No app to play with");
+                    // Define what your app should do if no activity can handle the intent.
+                }
+
+//                if (intent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(chooser);
+//                }
+
+            }
+        });
+
+        bSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+
+                String name = String.valueOf(nameField.getText());
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+
+                if (!name.equals(""))
+                {
+                    intent.setData(Uri.parse("https://www.google.com/search?q=" + name));
+                    startActivity(intent);
+                }
+                else
+                {
+                    String errorMessage = "You have not entered a name in the text box !!!";
+                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
     //Performing action onItemSelected and onNothing selected
@@ -100,9 +159,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         map.put("teal",R.color.teal_200);
         map.put("green",R.color.green);
         map.put("black",R.color.black);
-
-        System.out.println(map.get("red"));
-        System.out.println(R.color.black);
 
         button = findViewById(R.id.button);
         button.setBackgroundColor(getResources().getColor(map.get(collors[position])));
