@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.HashMap;
 import java.util.Map;
 
+import intents.MainIntentActivity;
 import lifecycle.ActivityA;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText nameField;
     Button button;
     Button goto_A;
+    Button go_to_main_intent_activity;
     FloatingActionButton bSearch, bShare;
     TextView textView;
     Spinner spinner;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner = (Spinner) findViewById(R.id.spinner);
 
         goto_A = findViewById(R.id.goto_A );
-
+        go_to_main_intent_activity = findViewById(R.id.go_to_main_intent_activity);
 
         spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
@@ -165,6 +167,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ActivityA.class);
+                startActivity(intent);
+            }
+        });
+
+        go_to_main_intent_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MainIntentActivity.class);
                 startActivity(intent);
             }
         });

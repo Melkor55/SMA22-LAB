@@ -17,25 +17,19 @@ public class MainIntentActivity extends AppCompatActivity {
 
     Button button1,button2,button3,button4 ;
     Button go_to_intent_filter;
+    Button go_home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_intent);
 
-        button1 =findViewById( R.id.button1 );
-        button2 =findViewById( R.id.button2 );
-        button3 =findViewById( R.id.button3 );
-        button4 =findViewById( R.id.button4 );
-        go_to_intent_filter =findViewById( R.id.go_to_filter );
-
-        go_to_intent_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainIntentActivity.this,IntentFilterActivity.class);
-                startActivity(intent);
-            }
-        });
+        button1 = findViewById( R.id.button1 );
+        button2 = findViewById( R.id.button2 );
+        button3 = findViewById( R.id.button3 );
+        button4 = findViewById( R.id.button4 );
+        go_to_intent_filter = findViewById( R.id.go_to_filter );
+        go_home = findViewById( R.id.go_to_home );
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +59,22 @@ public class MainIntentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent("MSA.LAUNCH", Uri.parse("tel:00401213456"));
+                startActivity(intent);
+            }
+        });
+
+        go_to_intent_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainIntentActivity.this,IntentFilterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        go_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainIntentActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
