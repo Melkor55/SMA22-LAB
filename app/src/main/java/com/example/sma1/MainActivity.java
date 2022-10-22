@@ -1,5 +1,7 @@
 package com.example.sma1;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,11 +25,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.HashMap;
 import java.util.Map;
 
+import lifecycle.ActivityA;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
 
     EditText nameField;
     Button button;
+    Button goto_A;
     FloatingActionButton bSearch, bShare;
     TextView textView;
     Spinner spinner;
@@ -37,12 +43,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "onCreate Home");
+
         nameField = findViewById(R.id.nameField);
         button = findViewById(R.id.button);
         bSearch = findViewById(R.id.bSearch);
         bShare = findViewById(R.id.bShare);
         textView = findViewById(R.id.textView);
         spinner = (Spinner) findViewById(R.id.spinner);
+
+        goto_A = findViewById(R.id.goto_A );
 
 
         spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
@@ -148,6 +158,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+
+        goto_A.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ActivityA.class);
+                startActivity(intent);
             }
         });
 
