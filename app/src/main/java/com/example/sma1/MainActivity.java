@@ -17,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 {
 
     EditText nameField;
-    Button button, bSearch, bShare;
+    Button button;
+    FloatingActionButton bSearch, bShare;
     TextView textView;
     Spinner spinner;
     String[] collors = { "red", "teal", "black", "green"};
