@@ -1,0 +1,3 @@
+# When i send data `Uri.parse("http...")` in `MainIntentActivity`, the app searches for apps that can open that request (for example a browser),
+# so when I put an `<intent-filter>` in one of my activities (``IntentFilterActivity``), it recognises that the activity can actually open the request so it either adds 
+# it to a list of apps, or it uses it directly - for example in case of button4, it opens it directly into `IntentFilterActivity` as I used the custom action instead of `VIEW`
