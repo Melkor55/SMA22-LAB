@@ -30,6 +30,15 @@ public class MonthlyExpenses {
         this.month = month;
     }
 
+    @Override
+    public String toString() {
+        return "MonthlyExpenses{" +
+                "month='" + month + '\'' +
+                ", income=" + income +
+                ", expenses=" + expenses +
+                '}';
+    }
+
     public void setIncome(float income) {
         this.income = income;
     }
